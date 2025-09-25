@@ -5,4 +5,5 @@ openai==1.108.1
 
 yt-dlp==2025.9.5
 
-gunicorn
+
+gunicorn==23.0.0

@@ -470,6 +470,24 @@ def serve_clip(filename):
     return send_from_directory(CLIPS_DIR, filename, as_attachment=False)
 
 
+
+
+# Root route for Render (so it doesn’t 404 on /)
+@app.route("/")
+def home():
+    return jsonify({
+        "message": "Clipper API is running!",
+        "endpoints": {
+            "health": "/api/health",
+            "create_clips": "/api/create-clips",
+            "check_status": "/api/check-status/<job_id>",
+            "clips": "/clips/<filename>"
+        }
+    })
+
+
 if __name__ == '__main__':
-    # For development only: disable reloader to avoid duplicate background threads
-    app.run(debug=False, host='0.0.0.0', port=5000, use_reloader=False)
+    # For development / production
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=False, host="0.0.0.0", port=port, use_reloader=False)
+

@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: clipper-api2
+    env: python
+    plan: free
+    buildPackages:
+      - ffmpeg
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn -w 2 -b 0.0.0.0:$PORT clipper_service_fixed:app"
